@@ -16,9 +16,9 @@ For correct usage add your user and password in [database.properties](./src/main
 
 # Screenshots
 
-    ![](/1.png)
-    ![](/2.png)
-    ![](/3.png)
+    ![](1.png)
+    ![](2.png)
+    ![](3.png)
 
 # Considerations
 For a real proper usage, add the img of your new product to assets and name it as the id of the new product, since this mock-up lacks proper file upload to the repository
