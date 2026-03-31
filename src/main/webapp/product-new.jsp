@@ -15,7 +15,7 @@
   <div class="container">
     <nav class="navbar navbar-expand">
       <div class="container">
-        <a class="navbar-brand" href="index.jsp"><img src="assets/img/logo.png" style="height: 30px;"></a>
+        <a class="navbar-brand" href="index.jsp"><img src="${pageContext.request.contextPath}/assets/img/logo.png" style="height: 30px;"></a>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav container align-items-center">
             <li class="nav-item dropdown text-center">
@@ -49,8 +49,14 @@
 
       <form action="${pageContext.request.contextPath}/product/new" method="post">
         <div class="mb-3">
-          <label class="form-label">Category ID</label>
-          <input type="number" name="categoryId" class="form-control" value="<c:out value="${param.categoryId}"/>" required/>
+          <label class="form-label">Category</label>
+          <select name="categoryId" class="form-select" required>
+            <c:forEach var="cat" items="${categories}">
+              <option value="${cat.categoryId}">
+                <c:out value="${cat.categoryName}"/>
+              </option>
+            </c:forEach>
+          </select>
         </div>
         <div class="mb-3">
           <label class="form-label">Product Name</label>
@@ -68,7 +74,7 @@
           <label class="form-label">SKU</label>
           <input type="number" name="sku" class="form-control" value="<c:out value="${param.sku}"/>" required/>
         </div>
-        <button type="submit" class="btn btn-primary">Create Product</button>
+        <button type="submit" class="btn btn-dark">Create Product</button>
         <a href="${pageContext.request.contextPath}/product/list" class="btn btn-secondary ms-2">Cancel</a>
       </form>
     </div>

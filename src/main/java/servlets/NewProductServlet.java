@@ -1,5 +1,6 @@
 package servlets;
 
+import dao.CategoryDao;
 import dao.ProductDao;
 import dto.ProductDto;
 import jakarta.servlet.ServletException;
@@ -15,6 +16,8 @@ public class NewProductServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        request.setAttribute("categories", new CategoryDao().findAll());
         request.getRequestDispatcher("/product-new.jsp").forward(request, response);
     }
 
@@ -48,6 +51,7 @@ public class NewProductServlet extends HttpServlet {
                 productDescription.trim(), unitPrice, Integer.parseInt(skuStr));
 
         new ProductDao().save(p);
+
         response.sendRedirect(request.getContextPath() + "/product/list");
     }
 }

@@ -15,7 +15,7 @@
   <div class="container">
     <nav class="navbar navbar-expand">
       <div class="container">
-        <a class="navbar-brand" href="index.jsp"><img src="assets/img/logo.png" style="height: 30px;"></a>
+        <a class="navbar-brand" href="index.jsp"><img src="${pageContext.request.contextPath}/assets/img/logo.png" style="height: 30px;"></a>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav container align-items-center">
             <li class="nav-item dropdown text-center">
@@ -47,14 +47,12 @@
         <div class="alert alert-danger"><c:out value="${error}"/></div>
       </c:if>
 
-      <%-- Step 1: search by name --%>
       <c:if test="${empty product}">
         <form action="${pageContext.request.contextPath}/product/edit" method="get" class="d-flex gap-2 mb-4">
           <input type="text" name="name" class="form-control" placeholder="Search product by name..." value="<c:out value="${param.name}"/>"/>
-          <button type="submit" class="btn btn-primary">Search</button>
+          <button type="submit" class="btn btn-dark">Search</button>
         </form>
 
-        <%-- Step 2: multiple results — pick one --%>
         <c:if test="${not empty results}">
           <p class="text-muted">Multiple products found. Select one to edit:</p>
           <ul class="list-group">
@@ -73,13 +71,18 @@
         </c:if>
       </c:if>
 
-      <%-- Step 3: edit form once a single product is selected --%>
       <c:if test="${not empty product}">
         <form action="${pageContext.request.contextPath}/product/update" method="post">
           <input type="hidden" name="id" value="${product.id}"/>
           <div class="mb-3">
-            <label class="form-label">Category ID</label>
-            <input type="number" name="categoryId" class="form-control" value="<c:out value="${product.categoryId}"/>" required/>
+            <label class="form-label">Category</label>
+            <select name="categoryId" class="form-select" required>
+              <c:forEach var="cat" items="${categories}">
+                <option value="${cat.categoryId}" <c:if test="${cat.categoryId == product.categoryId}">selected</c:if> >
+                <c:out value="${cat.categoryName}"/>
+                </option>
+              </c:forEach>
+            </select>
           </div>
           <div class="mb-3">
             <label class="form-label">Product Name</label>
@@ -97,7 +100,7 @@
             <label class="form-label">SKU</label>
             <input type="number" name="sku" class="form-control" value="<c:out value="${product.sku}"/>" required/>
           </div>
-          <button type="submit" class="btn btn-primary">Save Changes</button>
+          <button type="submit" class="btn btn-dark">Save Changes</button>
           <a href="${pageContext.request.contextPath}/product/edit" class="btn btn-secondary ms-2">Back</a>
         </form>
       </c:if>

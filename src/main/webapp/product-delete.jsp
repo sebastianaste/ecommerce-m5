@@ -15,7 +15,7 @@
   <div class="container">
     <nav class="navbar navbar-expand">
       <div class="container">
-        <a class="navbar-brand" href="index.jsp"><img src="assets/img/logo.png" style="height: 30px;"></a>
+        <a class="navbar-brand" href="index.jsp"><img src="${pageContext.request.contextPath}/assets/img/logo.png" style="height: 30px;"></a>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav container align-items-center">
             <li class="nav-item dropdown text-center">
@@ -47,14 +47,12 @@
         <div class="alert alert-danger"><c:out value="${error}"/></div>
       </c:if>
 
-      <%-- Step 1: search by name --%>
       <c:if test="${empty product}">
         <form action="${pageContext.request.contextPath}/product/delete" method="get" class="d-flex gap-2 mb-4">
           <input type="text" name="name" class="form-control" placeholder="Search product by name..." value="<c:out value="${param.name}"/>"/>
           <button type="submit" class="btn btn-primary">Search</button>
         </form>
 
-        <%-- Step 2: multiple results — pick one --%>
         <c:if test="${not empty results}">
           <p class="text-muted">Multiple products found. Select one to delete:</p>
           <ul class="list-group">
@@ -69,7 +67,6 @@
         </c:if>
       </c:if>
 
-      <%-- Step 3: confirmation once a single product is selected --%>
       <c:if test="${not empty product}">
         <div class="card mb-4">
           <div class="card-body">
@@ -80,7 +77,7 @@
             <p><strong>SKU:</strong> <c:out value="${product.sku}"/></p>
           </div>
         </div>
-        <p class="text-danger fw-bold">Are you sure you want to delete this product?</p>
+        <p class="fw-bold">Are you sure you want to delete this product?</p>
         <form action="${pageContext.request.contextPath}/product/delete" method="post">
           <input type="hidden" name="id" value="${product.id}"/>
           <button type="submit" class="btn btn-danger">Yes, Delete</button>
