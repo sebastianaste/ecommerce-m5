@@ -1,9 +1,5 @@
 package dto;
 
-//category_id INT AUTO_INCREMENT PRIMARY KEY,
-//category_name VARCHAR(100) NOT NULL UNIQUE,
-//category_description TEXT
-
 public class CategoryDto {
     private int categoryId;
     private String categoryName;
@@ -41,4 +37,4 @@ public class CategoryDto {
     public void setCategoryDescription(String categoryDescription) {
         this.categoryDescription = categoryDescription;
     }
-}
+ }
